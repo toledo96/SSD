@@ -14,29 +14,23 @@ def histograma_imagen_e_imagen(imagen):
 
 
 def ssd_escala_grises(imagen_original, imagen_temporal, dimension):
-    matriz_ssd = np.zeros(
-        (posicion_y.get() - inicio_x.get(), fin_x.get() - inicio_x.get()))
+    matriz_ssd = np.zeros((posicion_y.get() - inicio_x.get(), fin_x.get() - inicio_x.get()))
     # recorte de la imagen original que sera utilizada para comparar
-    recorte_matriz_original = np.zeros(
-        (posicion_y.get() - inicio_x.get(), fin_x.get() - inicio_x.get()))
+    recorte_matriz_original = np.zeros((posicion_y.get() - inicio_x.get(), fin_x.get() - inicio_x.get()))
     # recorte de la imagen temporal que sera utilizada para comparar
-    recorte_matriz_temporal = np.zeros(
-        (posicion_y.get() - inicio_x.get(), fin_x.get() - inicio_x.get()))
+    recorte_matriz_temporal = np.zeros((posicion_y.get() - inicio_x.get(), fin_x.get() - inicio_x.get()))
     histograma_imagen_e_imagen(imagen_original)
     # selecciona el punto medio de la imagen que sera utilizada para comparar
     seccion_centro = np.zeros((dimension, dimension))
     #SE CREA LA MATRIZ QUE SERA UTILIZADA PARA EXAMINAR LA MATRIZ
     for y in range(inicio_x.get(), posicion_y.get()):
         for x in range(inicio_x.get(), fin_x.get()):
-            recorte_matriz_original[y - inicio_x.get()
-                                    ][x - inicio_x.get()] = imagen_original[y][x]
-            recorte_matriz_temporal[y - inicio_x.get()
-                                    ][x - inicio_x.get()] = imagen_temporal[y][x]
+            recorte_matriz_original[y - inicio_x.get() ][x - inicio_x.get()] = imagen_original[y][x]
+            recorte_matriz_temporal[y - inicio_x.get() ][x - inicio_x.get()] = imagen_temporal[y][x]
 
     for y in range(int(posicion_y.get() / 2), int((posicion_y.get() / 2) + dimension)):
         for x in range(int(fin_x.get() / 2), int((fin_x.get() / 2) + dimension)):
-            seccion_centro[y - int(posicion_y.get() / 2)][x -
-                                                          int(fin_x.get() / 2)] = imagen_original[y][x]
+            seccion_centro[y - int(posicion_y.get() / 2)][x -int(fin_x.get() / 2)] = imagen_original[y][x]
 
     #recorrido_matriz(matriz_ssd, recorte_matriz_original,recorte_matriz_temporal, seccion_centro, dimension)
 
@@ -66,8 +60,6 @@ def recorrido_matriz(matriz_ssd, recorte_matriz_original, recorte_matriz_tempora
             sumatoria = 0
 
 # L O G I C A D E  B O T O N E S
-
-
 def accion_boton_escala_grises():
     # I M A G E N  O R I G I N A L
     filename = askopenfilename()  # obtenemos la ruta de la imagen
@@ -83,9 +75,8 @@ def accion_boton_escala_grises():
 
     # obtiene las filas y columnas de la matriz de la imagen original
     rows_y, cols_x = escala_grises_image.shape
-
-    print("IMPRIMIENDO IMAGEN")
-    ssd_escala_grises(escala_grises_image, escala_grises_image2, 3)
+    
+    ssd_escala_grises(escala_grises_image, escala_grises_image2, tamano_centro.get())
 
 
 def accion_boton_rgb():
@@ -118,6 +109,7 @@ inicio_x = IntVar()
 fin_x = IntVar()
 posicion_y = IntVar()
 gama_valor = DoubleVar()
+tamano_centro = IntVar()
 
 x_entry = Entry(ventana, textvariable=inicio_x).place(x=50, y=125)
 Label(ventana, text="Inicio X").place(x=90, y=100)
@@ -128,7 +120,10 @@ Label(ventana, text="fin X").place(x=230, y=100)
 y_entry = Entry(ventana, textvariable=posicion_y).place(x=330, y=125)
 Label(ventana, text="Inicio y").place(x=360, y=100)
 
-gama_entry = Entry(ventana, textvariable=gama_valor).place(x=200, y=150)
-Label(ventana, text="Valor gamma").place(x=120, y=150)
+gama_entry = Entry(ventana, textvariable=gama_valor).place(x=50, y=175)
+Label(ventana, text="Valor gamma").place(x=90, y=150)
+
+gama_entry = Entry(ventana, textvariable=tamano_centro).place(x=200, y=175)
+Label(ventana, text="Valor centro").place(x=190, y=150)
 
 ventana.mainloop()
