@@ -49,5 +49,5 @@ entryYPosicion2 = Entry(ventana, textvariable=yPosicion2).place(x=300, y= 100)
 
 #Botones de carga de imagenes
 btn1 = Button(ventana, width=20, text="Imagen escala de grises", command=cargarImagen).place(x=180, y=150)
-
+print("hola mundo")
 ventana.mainloop()
